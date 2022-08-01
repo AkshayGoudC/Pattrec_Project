@@ -1,6 +1,5 @@
 import cv2
 
-
 class FaceDetection:
     _model = [
         {
@@ -57,7 +56,10 @@ class FaceDetection:
         _scale_factor = 1.1
         _features = _item["_classifier"].detectMultiScale(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), _scale_factor,
                                                           _item["min_neighbors"], )
+
+
         _coords = []
+
 
         for _feature in _features:
             _x, _y, _width, _height = _feature
@@ -82,10 +84,14 @@ class FaceDetection:
         self._classify()
         _img = self._get_img()
 
+
         _coords = []
         _roi_img = None
 
+
         _coords = self._draw_boundary(_img, self._model[0])
+
+
 
         if len(_coords) == 4:
 
@@ -111,7 +117,7 @@ _face_detection = FaceDetection()
 while True:
     _img = _face_detection.detect()
     cv2.imshow("face detection", _img)
-    if cv2.waitkey(1) & 0xFF == ord("q"):
+    if cv2.waitKey(1) & 0xFF == ord("q"):
         break
 
 _face_detection.release()
